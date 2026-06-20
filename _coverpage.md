@@ -4,7 +4,7 @@
 
 - ⚛️ 21 componentes · React 19 · Tailwind v4
 - 🎨 Tokens OKLCH · fontes Geist · dark mode
-- 📦 Um pacote npm, uma fonte da verdade
+- 📦 Instale, importe, use
 
-[Plano & decisões](PLAN.md)
-[Começar →](PLAYBOOK.md)
+[Contribuir](CONTRIBUIR.md)
+[Guia de uso →](PLAYBOOK.md)
