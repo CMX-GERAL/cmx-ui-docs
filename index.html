@@ -5,11 +5,127 @@
     <title>@cmx-geral/ui — Documentação</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Design system da CMX — playbook, plano e adoção do pacote @cmx-geral/ui" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+    <meta name="theme-color" content="#0f0f12" />
+
+    <!-- Fonte da marca -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" />
+
+    <!-- Base: docsify-themeable (dark) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css" />
+
     <style>
-      :root { --theme-color: #2540ff; }
-      .markdown-section { max-width: 880px; }
-      .markdown-section table { display: table; width: 100%; }
+      /* ---- Tokens da CMX (dark) ---- */
+      :root {
+        --bg: oklch(0.145 0 0);
+        --surface: oklch(0.205 0 0);
+        --surface-2: oklch(0.185 0 0);
+        --fg: oklch(0.985 0 0);
+        --muted: oklch(0.708 0 0);
+        --border: oklch(1 0 0 / 10%);
+        --brand: #6a8bff;
+        --brand-2: #9a6cff;
+
+        /* docsify-themeable */
+        --base-font-family: "Geist", system-ui, -apple-system, sans-serif;
+        --base-font-size: 16px;
+        --base-line-height: 1.7;
+        --base-color: oklch(0.9 0 0);
+        --base-background-color: var(--bg);
+        --theme-color: var(--brand);
+        --link-color: var(--brand);
+        --mono-font-family: "Geist Mono", ui-monospace, monospace;
+        --content-max-width: 56rem;
+
+        --sidebar-width: 17rem;
+        --sidebar-background: var(--surface-2);
+        --sidebar-border-color: var(--border);
+        --sidebar-name-color: var(--fg);
+        --sidebar-nav-link-color: var(--muted);
+        --sidebar-nav-link-color--active: var(--fg);
+        --sidebar-nav-link-border-color--active: var(--brand);
+        --sidebar-nav-link-background-color--active: oklch(1 0 0 / 6%);
+
+        --heading-color: var(--fg);
+        --blockquote-border-color: var(--brand);
+        --notice-border-radius: 10px;
+      }
+
+      html, body { background: var(--bg); }
+
+      /* ---- Tapa geral ---- */
+      .sidebar { border-right: 1px solid var(--border); }
+      .sidebar .app-name, .sidebar > h1 { margin: 1.4rem 0 1rem; font-weight: 600; letter-spacing: -0.01em; }
+      .sidebar-nav li > a { border-radius: 8px; padding: 6px 10px; transition: background .15s, color .15s; }
+      .sidebar-nav li > a:hover { background: oklch(1 0 0 / 5%); color: var(--fg); }
+
+      .markdown-section { color: oklch(0.9 0 0); }
+      .markdown-section h1, .markdown-section h2, .markdown-section h3 { letter-spacing: -0.02em; }
+      .markdown-section h1 { font-weight: 600; }
+      .markdown-section h2 {
+        margin-top: 2.4rem; padding-bottom: .4rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .markdown-section a { font-weight: 500; }
+      .markdown-section a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+      .markdown-section strong { color: var(--fg); }
+
+      /* Código */
+      .markdown-section code, .markdown-section pre {
+        font-family: "Geist Mono", ui-monospace, monospace;
+      }
+      .markdown-section :not(pre) > code {
+        background: oklch(1 0 0 / 8%); color: oklch(0.92 0 0);
+        border-radius: 6px; padding: .15em .4em; font-size: .88em;
+      }
+      .markdown-section pre {
+        background: var(--surface) !important;
+        border: 1px solid var(--border); border-radius: 12px;
+      }
+      .markdown-section pre > code { background: transparent !important; }
+
+      /* Blockquote / notas */
+      .markdown-section blockquote {
+        background: oklch(1 0 0 / 4%);
+        border-left: 3px solid var(--brand);
+        border-radius: 0 10px 10px 0; padding: .6rem 1rem; color: var(--muted);
+      }
+
+      /* Tabelas */
+      .markdown-section table { display: table; width: 100%; border-collapse: collapse; }
+      .markdown-section th, .markdown-section td { border: 1px solid var(--border); padding: .55rem .8rem; }
+      .markdown-section thead th { background: var(--surface-2); color: var(--fg); }
+      .markdown-section tbody tr:nth-child(2n) { background: oklch(1 0 0 / 3%); }
+
+      /* Busca */
+      .search input {
+        background: var(--surface) !important; border: 1px solid var(--border) !important;
+        color: var(--fg) !important; border-radius: 10px !important;
+      }
+      .search .results-panel, .search .matching-post { background: var(--surface) !important; }
+      .search .clear-button svg { fill: var(--muted); }
+
+      /* ---- Capa (hero) ---- */
+      section.cover {
+        background:
+          radial-gradient(900px circle at 18% 18%, rgba(154, 108, 255, 0.20), transparent 45%),
+          radial-gradient(900px circle at 85% 75%, rgba(106, 139, 255, 0.22), transparent 45%),
+          var(--bg) !important;
+      }
+      section.cover .cover-main > h1 { font-weight: 600; letter-spacing: -0.03em; }
+      section.cover .cover-main > h1 small { display: none; }
+      section.cover blockquote p { color: var(--muted); font-size: 1.15rem; }
+      section.cover .cover-main a {
+        border-radius: 10px; font-weight: 500; padding: .7rem 1.4rem; transition: transform .12s, box-shadow .12s;
+      }
+      section.cover .cover-main a:last-child {
+        background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: 0; color: #fff;
+        box-shadow: 0 8px 24px rgba(106, 139, 255, 0.35);
+      }
+      section.cover .cover-main a:last-child:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(106, 139, 255, 0.45); }
+      section.cover .cover-main a:not(:last-child) { border-color: var(--border); color: var(--fg); }
     </style>
   </head>
   <body>
@@ -18,6 +134,8 @@
       window.$docsify = {
         name: '@cmx-geral/ui',
         loadSidebar: true,
+        coverpage: true,
+        onlyCover: false,
         subMaxLevel: 2,
         homepage: 'README.md',
         auto2top: true,
@@ -29,6 +147,7 @@
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
