@@ -1,0 +1,4 @@
+- [Início](/)
+- [📘 Playbook](PLAYBOOK.md)
+- [🗺️ Plano do projeto](PLAN.md)
+- [🔄 Adoção (dogfooding)](dogfooding-poc-agents.md)
