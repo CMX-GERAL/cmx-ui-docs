@@ -220,6 +220,69 @@ import { ScrollArea } from '@cmx-geral/ui'
 <ScrollArea className="h-72">…lista longa…</ScrollArea>
 ```
 
+### Sidebar (navegação lateral)
+Composição completa de menu lateral — precisa do `SidebarProvider` envolvendo tudo. Responsiva (vira drawer no mobile).
+```tsx
+import {
+  SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarMenu,
+  SidebarMenuItem, SidebarMenuButton, SidebarTrigger, SidebarInset,
+} from '@cmx-geral/ui'
+
+<SidebarProvider>
+  <Sidebar>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive><Home /> Início</SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset>
+    <SidebarTrigger />
+    {/* conteúdo da página */}
+  </SidebarInset>
+</SidebarProvider>
+```
+Sub-componentes: `SidebarHeader`/`SidebarFooter`, `SidebarGroupLabel`, `SidebarMenuSub*`, `SidebarSeparator`, e o hook `useSidebar` (estado aberto/colapsado). O token `--sidebar` é o próprio canvas (o menu "some" no fundo; a separação vem da borda/sombra do card de conteúdo).
+
+### Sheet (painel deslizante)
+```tsx
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@cmx-geral/ui'
+<Sheet>
+  <SheetTrigger asChild><Button variant="outline">Abrir</Button></SheetTrigger>
+  <SheetContent side="right">
+    <SheetHeader><SheetTitle>Filtros</SheetTitle><SheetDescription>…</SheetDescription></SheetHeader>
+    …
+  </SheetContent>
+</Sheet>
+```
+Desliza da borda — `side`: `top` · `right` · `bottom` · `left`.
+
+### Collapsible
+```tsx
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@cmx-geral/ui'
+<Collapsible>
+  <CollapsibleTrigger asChild><Button variant="ghost">Detalhes</Button></CollapsibleTrigger>
+  <CollapsibleContent>…conteúdo expansível…</CollapsibleContent>
+</Collapsible>
+```
+
+### Separator
+```tsx
+import { Separator } from '@cmx-geral/ui'
+<Separator />                        // horizontal
+<Separator orientation="vertical" />
+```
+
+### Skeleton (carregamento)
+```tsx
+import { Skeleton } from '@cmx-geral/ui'
+<Skeleton className="h-4 w-32" />    // placeholder enquanto carrega
+```
+
 ### Toaster (notificações)
 Monte o `<Toaster />` uma vez (no topo do app) e dispare com `toast` do `sonner`:
 ```tsx
@@ -251,10 +314,16 @@ Receitas que combinam os componentes — repita-as para manter as telas consiste
 
 Sempre use os tokens semânticos (nunca cor/tamanho fixo).
 
-**Cor** — `bg-background` · `text-foreground` · `bg-card` · `text-muted-foreground` · `border` · `bg-primary` (marca) · `bg-secondary` · `bg-accent` · `bg-destructive`. Todos têm versão dark (via `.dark` no `<html>`).
+**Cor** — `bg-background` · `text-foreground` · `bg-card` · `text-muted-foreground` · `border` · `bg-primary` (marca, preenchimento/botão) · `bg-secondary` · `bg-accent` · `bg-destructive`. Todos têm versão dark (via `.dark` no `<html>`).
+
+**Cor de marca em dois papéis** — `bg-primary` para **preenchimento** (botão, texto branco) e `text-primary-accent` para **texto/ícone** de marca (mais claro no dark, legível no canvas escuro). Não use `text-primary` para texto de marca no dark.
+
+**Superfícies (elevação por papel)** — `bg-surface-sunken` (apoio que recua: referência, preview) · `bg-surface-panel` (= card, o foco/bancada) · `bg-surface-raised` (= muted, elementos interativos elevados).
 
 **Tipografia** — fontes `font-sans` (Geist) e `font-mono` (Geist Mono); escala `text-xs`→`text-3xl`; pesos `font-normal`→`font-bold`.
 
 **Espaçamento e raio** — espaçamento base `0.25rem` (`gap-2`, `p-4`…); raio `rounded-sm`→`rounded-xl` (base `0.625rem`) + `rounded-full`.
 
 **Elevação** — `shadow-xs` (repouso) · `shadow-sm` (hover) · `shadow-md` (dropdown) · `shadow-lg` (dialog). No dark a separação vem da borda + superfície, não da sombra.
+
+**Movimento** — `animate-fade-in` · `animate-slide-up` (entrada) · `animate-sonar` (ondas concêntricas) · `animate-bob` (respiro) · `animate-pop` (entrada de selo). Todo movimento decorativo é desligado em `prefers-reduced-motion`.
